@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MinDOS</title>
+  </head>
+  <body>
+    <div id="desktop" style="--wallpaper: var(--solid);">
+
+      <div id="desktopApps"></div>
+
+      <div id="taskBar" class="panel">
+        <button id="startBtn" class="panel cursor-pointer no-shrink">
+          <img src="pictures/start.png" alt="icon">
+          Start
+        </button>
+        <div id="startMenu" class="panel hidden"></div>
+
+        <span class="separator horizontal"></span>
+
+        <div id="taskBarPrograms">
+        </div>
+
+        <span class="separator horizontal"></span>
+        <span id="clock" class="panel no-shrink">00:00</span>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

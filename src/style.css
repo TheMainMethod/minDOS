@@ -1,0 +1,342 @@
+/* ----- CSS RESET ----- */
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Remove default margin in favour of better control in authored CSS */
+body, h1, h2, h3, h4, p,
+figure, blockquote, dl, dd {
+  margin-block-end: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* Set shorter line heights on headings and interactive elements */
+h1, h2, h3, h4,
+button, input, label {
+  line-height: 1.1;
+}
+
+/* Balance text wrapping on headings */
+h1, h2,
+h3, h4 {
+  text-wrap: balance;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input, button,
+textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Make sure textareas without a rows attribute are not tiny */
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 5ex;
+}
+
+/* ----- GENERAL STYLES ----- */
+
+body {
+  margin: 0;
+}
+
+:root{
+  --solid: #56ADAB;
+  --bliss: url("/pictures/xp_bliss.jpg");
+  --panel-gray: #C4C6CA;
+  --border-dark-gray: #818286;
+  --border-light-gray: #FAFCFE;
+
+  --border-default: var(--border-light-gray) var(--border-dark-gray) var(--border-dark-gray) var(--border-light-gray);
+  --border-active: var(--border-dark-gray) var(--border-light-gray) var(--border-light-gray) var(--border-dark-gray);
+
+  --checkerboard: url(data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAAAAABX3VL4AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAOSURBVAgdYzjwn+H/AQAKgAN/9FC2ZAAAAABJRU5ErkJggg==);
+  --highlight: #0A0176;
+  --start-menu: #a0a1a3;
+}
+
+.panel {
+  padding: 2px 10px;
+  border: 2px solid;
+  background-color: var(--panel-gray);
+  border-color: var(--border-default);
+}
+
+.panel.active {
+  background: var(--checkerboard);
+  border-color: var(--border-active);
+}
+
+.separator {
+  display: block; 
+  border: 2px solid;
+  background-color: var(--panel-gray);
+  border-color: var(--border-active);
+}
+
+.separator.vertical {
+  margin: 0.3em 0;
+}
+
+.separator.horizontal {
+  margin: 0 0.3em;
+}
+
+.hidden {
+  display: none;
+}
+
+.os-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.flex {
+  display: flex;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.no-shrink {
+  flex-shrink: 0;
+}
+
+.cursor-default { cursor: default; }
+.cursor-pointer { cursor: pointer; }
+.cursor-move { cursor: move; }
+.cursor-n-resize { cursor: n-resize; }
+.cursor-s-resize { cursor: s-resize; }
+.cursor-e-resize { cursor: e-resize; }
+.cursor-w-resize { cursor: w-resize; }
+.cursor-ne-resize { cursor: ne-resize; }
+.cursor-nw-resize { cursor: nw-resize; }
+.cursor-se-resize { cursor: se-resize; }
+.cursor-sw-resize { cursor: sw-resize; }
+
+/* ----- SPECIFIC ELEMENTS ----- */
+
+#desktop {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+ --wallpaper: var(--solid);
+ background: var(--wallpaper);
+ background-position: center center;
+ background-size: cover;
+ width: 100vw;
+ height: 100vh;
+ overflow: hidden;
+}
+
+#taskBar {
+  /*align-self: flex-end;*/
+  display: flex;
+  /*flex-grow: 1;*/
+  padding: 2px;
+  user-select: none;
+  z-index: 9999;
+}
+
+
+#startBtn {
+  display: inline-flex;
+  gap: 0.25em;
+  align-items: center;
+  font-weight: bold;
+}
+
+#startBtn:active {
+  background: var(--checkerboard);
+  border-color: var(--border-active);
+}
+
+
+#startMenu {
+  padding: 2px;
+  position: absolute;
+  bottom: 36px;
+  left: 4px;
+  user-select: none;
+}
+
+#startMenu li {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  padding: 2px 10px;
+}
+
+#startMenu li:hover:not(.title) {
+  background: var(--highlight);
+  color: white;
+}
+
+#startMenu li.title {
+  display: block;
+  font-size: 1.5em;
+  background: var(--start-menu);
+  text-align: center;
+  color: white;
+  
+}
+
+#desktopApps {
+  flex-grow: 1;
+  width: 100%;
+  position: relative;
+}
+
+#desktopApps > div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.window {
+  --x: 16px;
+  --y: 16px;
+
+  position: relative;
+  top: var(--y);
+  left: var(--x);
+  width: 250px;
+  height: 250px;
+}
+
+.window.panel {
+  padding: 0;
+  pointer-events: all;
+}
+
+.window .window-btn {
+  padding: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  text-align: center;
+  flex-shrink: 0;
+  pointer-events: all;
+}
+
+.window-controls {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: -4px;
+  left: -4px;
+}
+
+.window-controls .control-area {
+  min-width: 6px;
+  min-height: 6px;
+}
+
+.window-content {
+  position: absolute;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.window .window-title {
+  padding: 2px;
+  gap: 2px;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  background-color: var(--border-dark-gray);
+  color: black;
+  user-select: none;
+}
+
+.window .window-title.active  {
+  background-color: var(--highlight);
+  color: white;
+}
+
+.window-title img {
+  margin: 0 4px;
+}
+
+.window-title span {
+  flex-grow: 1;
+  overflow: hidden;
+  text-wrap-mode: nowrap;
+  text-overflow: ellipsis;
+}
+
+.window-body {
+  pointer-events: all;
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.maximized {
+  top: 0;
+  left: 0;
+  width: 100%!important;
+  height: 100%!important;
+}
+
+#taskBarPrograms {
+  display: flex;
+  flex-grow: 1;
+  gap: 2px;
+  text-wrap-mode: nowrap;
+  overflow: auto;
+}
+
+.program-tab {
+  display: inline-flex;
+  gap: 0.25em;
+  align-items: center;
+  pointer-events: all;
+}
+
+#clock {
+  display: flex;
+  align-items: center;
+  border-color: var(--border-active);
+}
+
