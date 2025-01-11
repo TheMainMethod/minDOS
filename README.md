@@ -1,7 +1,7 @@
 # MinDOS
  OS-like webpage mimicking some of Win95 features.
 
- Written in mostly vanilla JS, only using Vite for live changes.
+ Written mostly on vanilla JS, using Vite only for HMR.
 
  This project uses icons from [Alex Meub's Site](https://win98icons.alexmeub.com/).
  The Start Menu Logo is slightly modified though.
