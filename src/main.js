@@ -136,5 +136,7 @@ setTime();
 
 openApp('about');
 
+menuManager.createMenu(null, 100, 100);
+
 
 console.log("procesos",processList);

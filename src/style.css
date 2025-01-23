@@ -340,3 +340,13 @@ body {
   border-color: var(--border-active);
 }
 
+/*context menu */
+
+.context-menu {
+  --x: 100px;
+  --y: 100px;
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+
+}

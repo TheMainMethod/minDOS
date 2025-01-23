@@ -3,15 +3,18 @@
 
 function useContextMenu() {
 
-    function createMenu(config) {
+    function createMenu(config, x, y) {
         const newEl = document.createElement("div");
-        newEl.id = 'contextMenu';
+        //newEl.id = 'contextMenu';
 
         newEl.innerHTML = /*html*/`
-        <div>hola</div>
+        <div class="panel">content</div>
         `;
 
-        document.appendChild(newEl);
+        newEl.classList.add('context-menu');
+
+
+        document.body.appendChild(newEl);
     }
 
     return {
