@@ -1,7 +1,14 @@
-
-function iexplorer() {
+/**
+ * Application: internet explorer
+ * @param {Object} config: Configuration
+ * @param {HTMLElement} config.el: HTML element
+ * @param {number} config.id: Process Id
+ * @param {string} config.params: Extra params
+ * @param {number} config.callback: Callback function
+ */
+function iexplorer(config) {
     //https://google.com/search?igu=1
-    return /*html*/`
+    config.el.innerHTML = /*html*/`
     <style>
         .ie-main {
             background: white;

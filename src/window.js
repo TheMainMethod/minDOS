@@ -1,5 +1,8 @@
 import { iexplorer } from './programs/iexplorer';
 import { about } from './programs/about';
+import { explorer } from './programs/explorer';
+import { notepad } from './programs/notepad';
+import { photoViewer } from './programs/photoViewer';
 
 /**
  * Use windows
@@ -13,11 +16,14 @@ function useWindows(config) {
     let processId = 1000;
 
     const programs = {
-        iexplorer: iexplorer(),
-        about: about()
+        iexplorer: iexplorer,
+        explorer: explorer,
+        about: about,
+        notepad: notepad,
+        photoViewer: photoViewer
     }
 
-    function newWindow(app) {
+    function newWindow(app, params) {
         processId++;
 
         let defWidth = Math.min(768, window.innerWidth * 0.5);
@@ -74,13 +80,14 @@ function useWindows(config) {
                     <button class="panel window-btn cursor-pointer ${isMaximized ? '' : 'hidden'}" id="${getId('resBtn')}">⧠</button>
                     <button class="panel window-btn cursor-pointer" id="${getId('cloBtn')}">×</button>
                 </div>
-                <div class="window-body cursor-default" id="${getId('body')}">${programs[app.id] ?? ''}</div>
+                <div class="window-body cursor-default" id="${getId('body')}"></div>
             </div>
             
             
         </div>`;
 
         config.desktop.appendChild(newEl);
+        //
 
         let win = document.getElementById(getId('window'));
         let ctrls = document.getElementById(getId('controls'));
@@ -104,6 +111,8 @@ function useWindows(config) {
             return resizers[idx];
         }
     
+        //window content
+        programs[app.id]({el: body, id: thisProc, params: params, callback: config.emitEvent});
 
         //move window
         area.ondragstart = function() { return false; }

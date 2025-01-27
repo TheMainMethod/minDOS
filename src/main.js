@@ -4,13 +4,35 @@ import { useWindows } from './window';
 import { useTaskBar } from './taskbarApps';
 
 import { useContextMenu } from './contextMenu';
+import { useDesktopIcons } from './desktopIcons';
 
 let apps = [
   {
     id: 'iexplorer',
     name: 'Internet Explorer',
-    icon16: 'msie1-3.png',
-    icon32: 'msie1-0.png'
+    icon16: 'msie1-4.png',
+    icon32: 'msie1-1.png',
+    start: true
+  },
+  {
+    id: 'explorer',
+    name: 'My Files',
+    icon16: 'directory_closed-1.png',
+    icon32: 'directory_closed-3.png',
+    start: true
+  },
+  {
+    id: 'notepad',
+    name: 'Notepad',
+    icon16: 'notepad-3.png',
+    icon32: 'notepad-4.png',
+    start: true
+  },
+  {
+    id: 'photoViewer',
+    name: 'Photo Viewer',
+    icon16: 'image_old_jpeg-1.png',
+    icon32: 'image_old_jpeg-0.png'
   },
   {
     id: 'about',
@@ -19,8 +41,37 @@ let apps = [
       width: 390,
       height: 165,
       canResize: false
-    }
+    },
+    start: true
   }
+]
+
+let desktopIcons = [
+  {
+    name: 'Internet Explorer',
+    icon64: 'msie1-2.png',
+    shortcut: true,
+    row: 5,
+    col: 2,
+    callback: () => {
+      windowEvent('launch', 'iexplorer');
+    }
+  },
+  {
+    name: 'Top secret',
+    icon64: 'directory_closed-4.png',
+    row: -1,
+    col: -1,
+    callback: () => {
+      windowEvent('launch', 'explorer', 'Desktop/Top secret');
+    }
+  },
+  {
+    name: 'Arch Linux',
+    callback: () => {
+      window.open('https://archlinux.org', '_blank');
+    }
+  },
 ]
 
 let processList = [];
@@ -29,11 +80,15 @@ let processList = [];
 let startMenu = useStartMenu({
   buttonEl: 'startBtn', 
   menuEl: 'startMenu',
-  apps: apps,
+  apps: apps.filter(e => e.start != null && e.start == true),
   emitEvent: windowEvent
 });
 
 let desktop = document.getElementById('desktopApps');
+
+let desktopIconManager = useDesktopIcons('desktopIcons', desktopIcons);
+desktopIconManager.drawIcons();
+window.onresize = desktopIconManager.drawIcons;
 
 function inactiveWindows() {
   for(let proc of processList){
@@ -53,11 +108,11 @@ function orderWindows(procId) {
   }
 }
 
-function windowEvent(e, id) {
+function windowEvent(e, id, params) {
   //console.log(e, id);
   switch(e){
     case 'launch':
-      openApp(id);
+      openApp(id, params);
       break;
     case 'close':
       let idx = processList.indexOf(id);
@@ -100,9 +155,9 @@ let taskbarManager = useTaskBar({
 
 let menuManager = useContextMenu();
 
-function openApp(name) {
+function openApp(name, params) {
   let app = apps.find(e => e.id == name);
-  let procId = windowManager.newWindow(app);
+  let procId = windowManager.newWindow(app, params);
   taskbarManager.newTask(app, procId);
 
   processList.push(procId);
@@ -136,7 +191,7 @@ setTime();
 
 openApp('about');
 
-menuManager.createMenu(null, 100, 100);
+//menuManager.createMenu(null, 100, 100);
 
 
 console.log("procesos",processList);

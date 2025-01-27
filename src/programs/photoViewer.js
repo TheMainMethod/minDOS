@@ -1,16 +1,18 @@
 /**
- * Application: about
+ * Application: photo viewer
  * @param {Object} config: Configuration
  * @param {HTMLElement} config.el: HTML element
  * @param {number} config.id: Process Id
  * @param {string} config.params: Extra params
  * @param {number} config.callback: Callback function
  */
-function about(config) {
+function photoViewer(config) {
+
+    let img = /*html*/`<img src="${'pictures/'+config.params ?? ''}">`;
 
     config.el.innerHTML = /*html*/`
     <style>
-        .about {
+        .pv {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -18,9 +20,13 @@ function about(config) {
             padding: 1rem;
             text-align: center;
         }
+
+        .pv img {
+            max-height: 100%;
+        }
     </style>
-    <div class="about">
-        Made with lots of ☕ by KamiKevin
+    <div class="pv">
+        ${config.params ? img : ''}
     </div>
     `;
 }
@@ -28,5 +34,5 @@ function about(config) {
 
 
 export {
-    about
+    photoViewer
 }
